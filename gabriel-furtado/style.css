@@ -1,0 +1,489 @@
+/* ==========================================================
+   TEMAS DE COR
+   Cada tema define uma escala de tons (50 = mais claro, 900 = mais escuro).
+   O tema padrão é cinza, combinando com o fundo lightgray.
+   O JavaScript troca o tema colocando a classe tema-blue, tema-red ou tema-green no body.
+   ========================================================== */
+:root {
+  --tom-50:  #f8fafc;
+  --tom-100: #f1f5f9;
+  --tom-200: #e2e8f0;
+  --tom-300: #cbd5e1;
+  --tom-500: #64748b;
+  --tom-600: #475569;
+  --tom-700: #334155;
+  --tom-800: #1e293b;
+  --tom-900: #0f172a;
+
+  --texto: #1f2937;
+  --texto-suave: #4b5563;
+  --branco: #ffffff;
+  --sombra: 0 10px 30px rgba(15, 23, 42, 0.08);
+  --raio: 18px;
+}
+
+body.tema-blue {
+  --tom-50:  #eff6ff;
+  --tom-100: #dbeafe;
+  --tom-200: #bfdbfe;
+  --tom-300: #93c5fd;
+  --tom-500: #3b82f6;
+  --tom-600: #2563eb;
+  --tom-700: #1d4ed8;
+  --tom-800: #1e40af;
+  --tom-900: #1e3a8a;
+}
+
+body.tema-red {
+  --tom-50:  #fef2f2;
+  --tom-100: #fee2e2;
+  --tom-200: #fecaca;
+  --tom-300: #fca5a5;
+  --tom-500: #ef4444;
+  --tom-600: #dc2626;
+  --tom-700: #b91c1c;
+  --tom-800: #991b1b;
+  --tom-900: #7f1d1d;
+}
+
+body.tema-green {
+  --tom-50:  #f0fdf4;
+  --tom-100: #dcfce7;
+  --tom-200: #bbf7d0;
+  --tom-300: #86efac;
+  --tom-500: #22c55e;
+  --tom-600: #16a34a;
+  --tom-700: #15803d;
+  --tom-800: #166534;
+  --tom-900: #14532d;
+}
+
+/* ==========================================================
+   PÁGINA
+   ========================================================== */
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: lightgray; /* Requisito: fundo da página lightgray */
+  font-family: "Segoe UI", Arial, Verdana, Helvetica, sans-serif;
+  color: var(--texto);
+  margin: 0;
+  transition: background-color 0.4s ease;
+}
+
+/* Quando uma cor é escolhida, o JavaScript aplica a cor no fundo do body.
+   Por cima dela fica uma camada semitransparente com tons da mesma cor,
+   que suaviza o fundo: mais forte no topo e mais clara embaixo. */
+body.tema-blue {
+  background-image: linear-gradient(180deg, rgba(147, 197, 253, 0.82), rgba(239, 246, 255, 0.94));
+}
+
+body.tema-red {
+  background-image: linear-gradient(180deg, rgba(252, 165, 165, 0.82), rgba(254, 242, 242, 0.94));
+}
+
+body.tema-green {
+  background-image: linear-gradient(180deg, rgba(134, 239, 172, 0.82), rgba(240, 253, 244, 0.94));
+}
+
+body.tema-blue,
+body.tema-red,
+body.tema-green {
+  background-attachment: fixed;
+}
+
+main {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 32px 16px 16px;
+}
+
+/* ==========================================================
+   CABEÇALHO
+   ========================================================== */
+.cabecalho {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--tom-200);
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.05);
+}
+
+.cabecalho-conteudo {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+  color: var(--tom-900);
+}
+
+.marca-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--tom-500), var(--tom-800));
+  color: var(--branco);
+  font-size: 15px;
+  letter-spacing: 1px;
+}
+
+.marca-texto small {
+  display: block;
+  font-weight: normal;
+  font-size: 12px;
+  color: var(--tom-600);
+  letter-spacing: 2px;
+}
+
+/* ===== Links de navegação ===== */
+.navegacao {
+  display: flex;
+  gap: 6px;
+}
+
+.link-nav {
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+/* Requisitos dos links: sem sublinhado, roxo quando visitado,
+   sublinhado ao passar o mouse. A ordem link > visited > hover importa. */
+a:link {
+  color: var(--tom-800);
+  text-decoration: none;
+}
+
+a:visited {
+  color: purple;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.link-nav:hover {
+  background-color: var(--tom-100);
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--tom-500);
+  outline-offset: 2px;
+}
+
+/* ===== Botão de personalizar cor ===== */
+.botao-cor {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border: none;
+  border-radius: 999px;
+  background-color: var(--tom-700);
+  color: var(--branco);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.botao-cor:hover {
+  background-color: var(--tom-900);
+  transform: translateY(-1px);
+}
+
+.botao-cor-bolinha {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, blue, red, green);
+  border: 2px solid var(--branco);
+}
+
+/* ==========================================================
+   SEÇÕES
+   ========================================================== */
+.secao {
+  background-color: var(--branco);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+  padding: 40px;
+  margin-bottom: 28px;
+  scroll-margin-top: 90px; /* compensa o cabeçalho fixo ao clicar nos links */
+}
+
+.etiqueta {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background-color: var(--tom-100);
+  color: var(--tom-800);
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.secao-cabecalho {
+  margin-bottom: 24px;
+}
+
+.secao-titulo {
+  font-size: 28px;
+  margin: 12px 0 6px;
+  color: var(--tom-900);
+}
+
+.secao-descricao {
+  margin: 0;
+  color: var(--texto-suave);
+}
+
+/* ===== Hero (seção Início) ===== */
+.hero {
+  text-align: center;
+  background:
+    radial-gradient(circle at 10% 0%, var(--tom-200), transparent 45%),
+    radial-gradient(circle at 90% 100%, var(--tom-100), transparent 45%),
+    var(--branco);
+  border-top: 6px solid var(--tom-600);
+  padding-top: 48px;
+}
+
+/* Requisito: título azul, centralizado, Arial e negrito */
+#titulo {
+  color: blue;
+  text-align: center;
+  font-family: Arial;
+  font-weight: bold;
+  font-size: 52px;
+  line-height: 1.1;
+  margin: 18px 0 8px;
+}
+
+/* Requisito: subtítulo em caixa alta */
+.subtitulo {
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--tom-700);
+  font-size: 18px;
+  letter-spacing: 4px;
+  margin: 0 0 28px;
+}
+
+/* Requisito: parágrafo justificado, recuo de 25px, line-height 1.5 e letter-spacing 1px */
+#apresentacao {
+  text-align: justify;
+  text-indent: 25px;
+  line-height: 1.5;
+  letter-spacing: 1px;
+  max-width: 760px;
+  margin: 0 auto;
+  color: var(--texto-suave);
+  font-size: 16px;
+}
+
+/* Requisito: primeira letra do parágrafo em vermelho */
+#apresentacao::first-letter {
+  color: red;
+  font-size: 1.8em;
+  font-weight: bold;
+}
+
+/* ===== Destaques em números ===== */
+.destaques {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 36px;
+}
+
+.destaque {
+  background-color: var(--tom-50);
+  border: 1px solid var(--tom-200);
+  border-radius: 14px;
+  padding: 18px 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.destaque:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--sombra);
+}
+
+.destaque strong {
+  display: block;
+  font-size: 32px;
+  color: var(--tom-700);
+}
+
+.destaque span {
+  color: var(--texto-suave);
+  font-size: 14px;
+}
+
+/* ===== Lista de minicursos ===== */
+/* Requisito: marcadores quadrados */
+ul {
+  list-style-type: square;
+}
+
+.lista-cursos {
+  list-style-position: inside;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 14px;
+}
+
+.lista-cursos li {
+  background-color: var(--tom-50);
+  border: 1px solid var(--tom-200);
+  border-left: 5px solid var(--tom-600);
+  border-radius: 14px;
+  padding: 18px 20px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.lista-cursos li:hover {
+  transform: translateX(4px);
+  box-shadow: var(--sombra);
+  border-color: var(--tom-300);
+}
+
+.lista-cursos li::marker {
+  color: var(--tom-600);
+  font-size: 1.2em;
+}
+
+.lista-cursos strong {
+  font-size: 18px;
+  color: var(--tom-900);
+}
+
+.carga {
+  float: right;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background-color: var(--tom-600);
+  color: var(--branco);
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.curso-descricao {
+  display: block;
+  margin-top: 6px;
+  padding-left: 22px;
+  color: var(--texto-suave);
+  font-size: 15px;
+}
+
+/* ===== Contato ===== */
+.cartao-contato {
+  background: linear-gradient(135deg, var(--tom-50), var(--tom-100));
+  border: 1px solid var(--tom-200);
+  border-radius: 14px;
+  padding: 22px 24px;
+}
+
+.cartao-contato p {
+  margin: 0;
+  line-height: 1.6;
+  color: var(--tom-900);
+}
+
+/* ==========================================================
+   RODAPÉ
+   ========================================================== */
+.rodape {
+  background-color: var(--tom-900);
+  color: var(--tom-100);
+  text-align: center;
+  padding: 28px 16px;
+  margin-top: 20px;
+}
+
+.rodape p {
+  margin: 4px 0;
+}
+
+.rodape-marca {
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.creditos {
+  font-style: italic;
+  color: var(--tom-300);
+  font-size: 14px;
+}
+
+/* ==========================================================
+   RESPONSIVIDADE (celular)
+   ========================================================== */
+@media (max-width: 680px) {
+  .cabecalho-conteudo {
+    justify-content: center;
+  }
+
+  .secao {
+    padding: 28px 20px;
+  }
+
+  #titulo {
+    font-size: 38px;
+  }
+
+  .subtitulo {
+    font-size: 15px;
+    letter-spacing: 2px;
+  }
+
+  .destaques {
+    grid-template-columns: 1fr;
+  }
+
+  .carga {
+    float: none;
+    display: inline-block;
+    margin-bottom: 8px;
+  }
+}
+
+/* Respeita quem prefere menos animação */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  * {
+    transition: none !important;
+  }
+}
